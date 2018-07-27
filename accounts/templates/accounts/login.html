@@ -1,0 +1,33 @@
+{% extends "htmlpage/wrapper.html" %}
+
+{% block content %}
+    <div class="center indents">
+        <div class="row text-center">
+            <div class="col-md-6 offset-md-3">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label" for="username">Здесь введите свой email адрес:</label>
+                        <input class="form-control" type="text" placeholder="Email" name="username" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password_login">Здесь введите свой пароль:</label>
+                        <input class="form-control"
+                               type="password" placeholder="Пароль" name="password_login" id="password_login">
+                    </div>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+
+                        </ul>
+                    {% endif %}
+                    <input class="btn btn-success" type="submit" value="Войти" name="add_data">
+                    <a class="btn btn-secondary" href="{% url 'accounts:registration' %}">Регистрация</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

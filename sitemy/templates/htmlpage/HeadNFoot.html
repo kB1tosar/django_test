@@ -1,0 +1,39 @@
+{% block content %}
+    <div class="indents">
+        <header class="navbar navbar-expand-lg navbar-light fixed-top center"
+                style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="/" title="На Главную">Уютные блоГики</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHead"
+                    aria-controls="navbar" aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarHead">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-item nav-link" href ="{% url 'blog:create_blog' %}">Добавить блог</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog:blog_view' pk=2 %}">Блоги</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-item nav-link"
+                       href="https://volgograd.hh.ru/resume/f00166caff044bc7be0039ed1f414668363034">Ссылка на hh</a>
+                  </li>
+                </ul>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'accounts:personalcab' %}" class="btn btn-secondary" type="button">Личный кабинет</a>
+                    <a href="{% url 'accounts:logout' %}" class="btn btn-danger" type="button">Выход</a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="btn btn-success" type="button">Вход</a>
+                    <a href="{% url 'accounts:registration' %}" class="btn btn-secondary" type="button">Регистрация</a>
+                {% endif %}
+            </div>
+        </header>
+    </div>
+
+    <footer class="footer fixed-bottom" style="background-color: #e3f2fd;">
+        <div class="center">
+            <span>Никаие права не защищены ©</span>
+        </div>
+    </footer>
+{% endblock %}

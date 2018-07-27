@@ -1,0 +1,25 @@
+{% extends 'htmlpage/wrapper.html' %}
+
+{% block content %}
+    <div class="center">
+        {% if user == not_this_user.author %}
+        <h2>Редактирование блога</h2>
+        <form method="post" action="">
+            {% for field in form %}
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <input class="btn btn-warning" type="submit" value="Редактировать блог" name="add_data">
+{#            <a href="{% url 'blog:full_blog' pk=field.id %}" class="btn btn-info" type="submit" name="add_data">Назaд</a>#}
+        </form>
+        {% else %}
+            <h1>Ты что тут забыл? Это не твой блог!</h1>
+            {% load static %}
+            <img src="{% static 'sitemy/Image/nyan-cat.gif' %}">
+        {% endif %}
+    </div>
+{% endblock %}
