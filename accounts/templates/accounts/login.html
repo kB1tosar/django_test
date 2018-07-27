@@ -6,6 +6,7 @@
             <div class="col-md-6 offset-md-3">
                 <form method="POST" action="">
                     {% csrf_token %}
+{#Вывод форм для авторизации пользователя                #}
                     <div class="form-group">
                         <label class="control-label" for="username">Здесь введите свой email адрес:</label>
                         <input class="form-control" type="text" placeholder="Email" name="username" id="username">
@@ -15,18 +16,17 @@
                         <input class="form-control"
                                type="password" placeholder="Пароль" name="password_login" id="password_login">
                     </div>
+{#Вывод сообщения для новозарегистрировавшегося пользовотеля                #}
                     {% if messages %}
                         <ul class="messages">
                             {% for message in messages %}
                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                             {% endfor %}
-
                         </ul>
                     {% endif %}
                     <input class="btn btn-success" type="submit" value="Войти" name="add_data">
                     <a class="btn btn-secondary" href="{% url 'accounts:registration' %}">Регистрация</a>
                 </form>
-
             </div>
         </div>
     </div>

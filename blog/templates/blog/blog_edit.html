@@ -2,10 +2,12 @@
 
 {% block content %}
     <div class="center">
+{#Проверка на то чтобы пользователь не мог изменять чужие блоги/публикации    #}
         {% if user == not_this_user.author %}
         <h2>Редактирование блога</h2>
         <form method="post" action="">
             {% for field in form %}
+{#Форма для редактирования блога/публикации                #}
                 {% csrf_token %}
                 <div class="form-group">
                     {{ field.errors }}

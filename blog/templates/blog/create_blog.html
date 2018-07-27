@@ -2,8 +2,10 @@
 
 {% block content %}
     <div class="center">
+{#Проверка на то авторизован ли пользователь    #}
         {% if user.is_active %}
             <h1>Новый блог</h1>
+{#Вывод форм для создания блога/публикации            #}
             <form method="post" action="">
                 {% for field in form_post %}
                     {% csrf_token %}

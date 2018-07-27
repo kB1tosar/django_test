@@ -2,11 +2,14 @@
 
 {% block content %}
     <div class="center indents">
+{#Проверка возможности измения профиля пользователем, #}
+{#        если пользователь попытается изменить чужой профиль, то он будет перенаправлен    #}
         {% if user == not_this_user.user %}
             <div class="row text-center">
                 <div class="col-md-6 offset-md-3">
-                    <form method="POST" action="">
+                    <form method="POST" action="" enctype="multipart/form-data">
                         {% csrf_token %}
+{#Вывод форма для изменения профиля                    #}
                         {% for field in form %}
                             <div class="form-group">
                                 {{ field.errors }}

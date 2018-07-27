@@ -8,6 +8,8 @@ from datetime import datetime
 
 
 # Create your views here.
+
+# Функция для создания нового блога
 def blog_new(request):
     if request.method == "POST":
         form_post = PostForm(request.POST)
@@ -18,8 +20,10 @@ def blog_new(request):
             return HttpResponseRedirect(reverse('blog:blog_view', args=[3]))
     else:
         form_post = PostForm()
-    return render(request, 'blog/create_blog.html', {'form_post': form_post})
+    context={'form_post': form_post}
+    return render(request, 'blog/create_blog.html', context)
 
+# Функция для редактирования блога
 @login_required
 def blog_edit(request, pk):
     post = get_object_or_404(publication, pk=pk)
@@ -34,19 +38,20 @@ def blog_edit(request, pk):
             return redirect('blog:full_blog', pk=post.pk)
     else:
         form = PostForm(instance=post)
-    return render(request, 'blog/blog_edit.html', {'form': form, 'not_this_user': not_this_user})
+    context={'form': form, 'not_this_user': not_this_user}
+    return render(request, 'blog/blog_edit.html', context)
 
+# Функция для вывода всех блогов
 def blog_list(request, pk):
     blogs_list = publication.objects.all()
     if pk == 1:
         blogs_list = blogs_list.order_by('-author')
     elif pk == 2:
         blogs_list = blogs_list.order_by('-pub_date')
-    return render(request, 'blog/all_blogs.html', {'blogs_list': blogs_list,
-                                                   # 'sort_by_author': sort_by_author,
-                                                   # 'sort_by_pub_date': sort_by_pub_date
-                                                   },)
+    context={'blogs_list': blogs_list}
+    return render(request, 'blog/all_blogs.html', context)
 
+# Функция для более детального отображения блога, а также вывод комментариев
 def blog_detail(request, pk):
     full_blog = get_object_or_404(publication, id=pk)
     comment = Comments.objects.filter(new=pk)
@@ -60,11 +65,10 @@ def blog_detail(request, pk):
             return redirect('blog:full_blog', pk=full_blog.pk)
     else:
         form_for_comment = CommentForm()
-    return render(request, 'blog/full_blog.html',
-                  {'full_blog': full_blog,
-                  'comments': comment,
-                  'form_for_comment': form_for_comment})
+    context = {'full_blog': full_blog, 'comments': comment, 'form_for_comment': form_for_comment}
+    return render(request, 'blog/full_blog.html', context)
 
+# Функция для удаления блога
 def blog_remove(request, pk):
     post = get_object_or_404(publication, pk=pk)
     post.delete()

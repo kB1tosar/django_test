@@ -1,8 +1,8 @@
 from django import forms
 from .models import publication, Comments
 
+# Форма для создания блогов/публикаций
 class PostForm(forms.ModelForm):
-
     title = forms.CharField(label='Название блога',
                             max_length=30,
                             min_length= 2,
@@ -19,9 +19,9 @@ class PostForm(forms.ModelForm):
             'text': forms.Textarea(attrs={'class': 'form-control', 'rows': '10', 'cols': '20'})
         }
 
+# Форма комментариев к статьям
 class CommentForm(forms.ModelForm):
-    """Форма комментариев к статьям
-    """
+
     class Meta:
         model = Comments
         fields = ('text', )

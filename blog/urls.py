@@ -10,5 +10,4 @@ urlpatterns = [
     path('full_blog/<int:pk>', views.blog_detail, name='full_blog'),
     path('blog_remove/<int:pk>', views.blog_remove, name='blog_remove'),
     path('blog_edit/<int:pk>', views.blog_edit, name='blog_edit'),
-    # path('sort_by/<int:pk>', views.sort_by, name='sort_by'),
 ]

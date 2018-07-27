@@ -14,7 +14,7 @@
         </h2>
         <p>Создан {{ full_blog.pub_date|date:"d.m.Y в H:i" }}</p>
         <p>{{ full_blog.text }}</p>
-        <p>Автор: {{ full_blog.author }}</p>
+        <h6>Автор: {{ full_blog.author }}</h6>
         <p>{{ full_blog.post|safe|linebreaks }}</p>
         <br>
         <div class="row justify-content-center back_title">
@@ -28,11 +28,14 @@
     {% for comment in comments %}
         <ul class="list-unstyled">
           <li class="media">
-            {% if user.profile.avatar %}
-                <img class="mr-3" src="{{ comment.profile.avatar.url|default_if_none:'#' }}" width="50" height="50"
-                     alt="Generic placeholder image">
+            {% if comment.user.profile.avatar.url != "" %}
+              {% load static %}
+                <img class="mr-3" src="{{ comment.user.profile.avatar.url }}" width="50" height="50"
+                     alt="{% static 'sitemy/Image/no_avatar.jpg' %}">
             {% else %}
-                <p>wadawdaw</p>
+                {% load static %}
+                <img class="mr-3" src="{% static 'sitemy/Image/no_avatar.jpg' %}" width="50" height="50"
+                     alt="{% static 'sitemy/Image/no_avatar.jpg' %}">
             {% endif %}
             <div class="media-body">
                 <p class="mt-0 mb-0"><strong>{{ comment.user }}</strong></p>
@@ -42,6 +45,7 @@
             </div>
           </li>
         </ul>
+        <hr>
     {% endfor %}
 {#Проверка на то чтобы создать блога не может комментировать свои блоги, а также форма для комментариев#}
         {% if user.is_active %}
