@@ -1,12 +1,24 @@
 {% extends "htmlpage/wrapper.html" %}
-
+{#Начальная страница сайта#}
 {% block content %}
     <div class="center">
         <div class="banner-visible-area style-scope ytd-c4-tabbed-header-renderer">
             <div id="banner-editor" class="style-scope ytd-c4-tabbed-header-renderer">
-                <p>Hello world</p>
-                {% load static %}
-
+                {% if user.is_active %}
+                    <h3>Привет, {{ user.username }}!</h3>
+                    {% load static %}
+                        <img src="{% static 'sitemy/Image/83157444_tumblr_lgh39kqniT1qbwcmwo1_500.gif' %}"
+                             class="img-thumbnail">
+                {% else %}
+                    <h3>Привет новенький или просто мимопроходящий!</h3>
+                    <p>На этом сайте ты можешь создавать блоги, но для это тебе нужно будет зарегистрироваться!
+                        Но чтобы только читать блоги, то ничего не нужно делать!</p>
+                    <p>Сверху, в шапке сайта, есть все нужные кнопки для твоего удобства</p>
+                    <p>В общем желаю удачи!</p>
+                    {% load static %}
+                    <img src="{% static 'sitemy/Image/tumblr_orar7eHD8M1qk8rzpo1_500.gif' %}"
+                         class="img-thumbnail">
+                {% endif %}
             </div>
         </div>
     </div>

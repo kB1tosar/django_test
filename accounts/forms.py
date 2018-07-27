@@ -57,11 +57,12 @@ class ProfileForm(forms.ModelForm):
                             min_length=2,
                             widget=forms.TextInput(attrs={'class': 'form-control'}))
     phone = forms.CharField(label='Телефон',
-                            max_length=20,
-                            min_length=2,
-                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+                               max_length=12,
+                               min_length=11,
+                               widget=forms.NumberInput(attrs={'class': 'form-control'}))
     avatar = forms.ImageField(label='Аватар',
-                             widget=forms.ClearableFileInput(attrs={'class': 'form-control '})
+                             widget=forms.ClearableFileInput(attrs={'class': 'form-control '}),
+                             required=False,
                              )
     class Meta:
         model = Profile

@@ -4,7 +4,7 @@
     <div class="center indents">
         <div class="row text-center">
             <div class="col-md-6 offset-md-3">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     {% csrf_token %}
 {#Вывод формы профиля для заполнения                #}
                     {% for field in profile_form %}

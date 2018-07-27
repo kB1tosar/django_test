@@ -57,7 +57,7 @@ def edit_profile(request, pk):
     edit_profile1 = get_object_or_404(Profile, pk=pk)
     not_this_user = get_object_or_404(Profile, id=pk)
     if request.method == "POST":
-        form = ProfileForm(request.POST, instance=edit_profile1)
+        form = ProfileForm(request.POST, request.FILES, instance=edit_profile1)
         if form.is_valid():
             edit_profile = form.save(commit=False)
             edit_profile.user = request.user
@@ -65,20 +65,20 @@ def edit_profile(request, pk):
             return redirect('accounts:personalcab')
     else:
         form = ProfileForm(instance=edit_profile1)
-    context = {'form': form, 'not_this_user': not_this_user}
+    context = {'form': form, 'not_this_user': not_this_user, }
     return render(request, 'accounts/edit_profile.html', context)
 
 # Создана функция для отображения формы для создания профиля пользователя на html странице
 @login_required
 def profile(request):
     if request.method == "POST":
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
             new_profile = profile_form.save(commit=False)
             new_profile.save()
             return HttpResponseRedirect(reverse('accounts:personalcab'))
     else:
-        profile_form = ProfileForm()
+        profile_form = ProfileForm(instance=request.user.profile)
     context = {'profile_form': profile_form}
     return render(request, 'accounts/registration_next.html', context)
 
