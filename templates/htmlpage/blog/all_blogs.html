@@ -1,0 +1,29 @@
+{% extends 'htmlpage/wrapper.html' %}
+{% block title %}
+    <title>Все блоги</title>
+{% endblock %}
+{% block content %}
+    <div class="center indents">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="#" type="button" class="btn btn-light disabled">Сортировать по</a>
+{#Кнопки для выбора в каком порядке сортировать имеющиеся блоги/публикации            #}
+            <a href="{% url 'blog:blog_view' pk=1 %}" type="button" class="btn btn-info">Автор</a>
+            <a href="{% url 'blog:blog_view' pk=2 %}" type="button" class="btn btn-dark">Время</a>
+        </div>
+{#Вывод всех имеющихся блогов    #}
+        {% for post in blogs_list %}
+            <div class="list-group">
+                <a href="{% url 'blog:full_blog' pk=post.id %}"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ post.title }}</h5>
+                        <small>{{ post.pub_date|date:"d.m.Y" }}</small>
+                    </div>
+                    <p class="mb-1">{{ post.short_description }}</p>
+                    <small>{{ post.author }}</small>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "htmlpage/wrapper.html" %}
+{% block title %}
+    <title>Блоги пользователя</title>
+{% endblock %}
+{% block content %}
+    <div class="center indents">
+        <div class="row">
+            <div class="list-group col-2">
+{#Выбор для пользователя что отображать, его публикации или профиль        #}
+                <a href="{% url 'accounts:personalcab' %}"
+                   class="list-group-item list-group-item-action">Личный профиль</a>
+
+                <a href="{% url 'accounts:user_publication' %}"
+                   class="list-group-item list-group-item-action active">Публикации</a>
+            </div>
+            <div class="col-9">
+{#Вывод всех блогов/публикаций пользователя в виде таблицы            #}
+                <h2>Публикации/блоги</h2>
+                <table class="table table-hover table-bordered">
+                    <thead class="color-th">
+                        <tr>
+                            <th>Название публикации</th>
+                            <th>Дата публикации</th>
+                            <th>Краткое описание</th>
+                            <th>Полный текст</th>
+                            <th>Редактирование</th>
+                        </tr>
+                    </thead>
+                    {% for post in user_pub %}
+{#                        {% if user == post.author %}#}
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'blog:full_blog' pk=post.id %}">{{ post.title }}</a>
+                                    </td>
+                                    <td>
+                                        {{ post.pub_date|date:"d.m.Y" }}
+                                    </td>
+                                    <td>
+                                        {{ post.short_description }}
+                                    </td>
+                                    <td>
+                                        {{ post.text }}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'blog:blog_edit' pk=post.id %}"
+                                           class="badge badge-primary">Редактировать</a>/
+
+                                        <a href="{% url 'blog:blog_remove' pk=post.id %}"
+                                           class="badge badge-danger">Удалить</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+{#                        {% endif %}#}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
