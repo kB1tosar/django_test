@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+from ckeditor.fields import RichTextField
+
 
 # Создан класс модель для блогов/публикаций
 class Publication(models.Model):
@@ -7,13 +9,14 @@ class Publication(models.Model):
     title = models.CharField(max_length=15)
     short_description = models.CharField(max_length=30, blank=True)
     pub_date = models.DateTimeField(default=datetime.now, blank=True)
-    text = models.TextField("Текст")
+    text = RichTextField(verbose_name='Текст')
 
     class Meta:
         ordering = ['author', '-pub_date', ]
 
     def __str__(self):
         return self.title
+
 
 # Создан класс модель со связью один к одному для комментариев к блогам/публикациям
 class Comments(models.Model):

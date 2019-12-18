@@ -15,7 +15,7 @@
         {% endif %}
         </h2>
         <p>Создан {{ full_blog.pub_date|date:"d.m.Y в H:i" }}</p>
-        <p>{{ full_blog.text }}</p>
+        <p>{{ full_blog.text|safe }}</p>
         <h6>Автор: {{ full_blog.author }}</h6>
         <p>{{ full_blog.post|safe|linebreaks }}</p>
         <br>
@@ -51,15 +51,11 @@
     {% endfor %}
 {#Проверка на то чтобы создать блога не может комментировать свои блоги, а также форма для комментариев#}
         {% if user.is_active %}
-            {% if user == full_blog.author %}
-                <p>Вы не можете комментировать свои статьи</p>
-            {% else %}
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{ form_for_comment.as_p }}
-                    <button class="btn btn-info" type="submit">Отправить</button>
-                </form>
-            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form_for_comment.as_p }}
+                <button class="btn btn-info" type="submit">Отправить</button>
+            </form>
         {% else %}
             <p>Чтобы оставить комментарий авторизуйтесь</p>
         {% endif %}

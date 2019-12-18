@@ -16,6 +16,8 @@
 
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/stylelish.css' %}">
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     {% block title %}
     <title>Главная страница</title>
     {% endblock %}
@@ -23,7 +25,6 @@
 <body>
     {% include "htmlpage/HeadNFoot.html" %}
     {% block content %}
-
     {% endblock %}
     <a href="#" class="scro11up">Наверх</a>
     {% load static %}
