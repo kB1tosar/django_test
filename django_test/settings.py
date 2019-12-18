@@ -37,10 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'templates',
-    # 'apps.main',
     'apps.accounts',
     'apps.blog',
+    'templates',
+    'ckeditor',
+    # 'apps.main',
     'django.contrib.sites',
     'django.contrib.redirects',
 ]

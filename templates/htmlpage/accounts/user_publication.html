@@ -40,7 +40,7 @@
                                         {{ post.short_description }}
                                     </td>
                                     <td>
-                                        {{ post.text }}
+                                        {{ post.text|safe }}
                                     </td>
                                     <td>
                                         <a href="{% url 'blog:blog_edit' pk=post.id %}"
